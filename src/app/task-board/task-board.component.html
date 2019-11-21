@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="task-title">
+        <h4>Task Dashboard</h4>
+    </div>
+    <form>
+        <div class="form-group col-md-6">
+            <label for="select-project">Select a project</label>
+            <select class="form-control" id="select-project" (change)="showTasksByProject($event.target.value)">
+                <option *ngFor="let proj of projects" [value]="proj.id">{{proj.name}}</option>
+            </select>
+        </div>
+    </form>
+
+    <div class="task-table">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Estimated tasks</th>
+                <th scope="col">Logged tasks</th>
+                <th scope="col">Total Task</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2019/11/18 - 2019/11/24</td>
+                    <td>15</td>
+                    <td>5</td>
+                    <td>40</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

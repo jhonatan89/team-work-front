@@ -1,0 +1,14 @@
+
+@media only screen and (min-width: 992px){
+    .fixed-left{
+        position: fixed;
+        width: 250px;
+        height: 100%;
+        display: block;
+    }
+
+    .fixed-left .navbar-nav{
+        display: block;
+    }
+
+}
