@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../shared/shared.service';
-import { TaskService } from './task.service';
+import { TaskBoardService } from './task-board.service';
+import { forkJoin, concat, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task-board',
@@ -9,26 +10,38 @@ import { TaskService } from './task.service';
 })
 export class TaskBoardComponent implements OnInit {
   
-  projects: any[] = [{id: 1, name: "Project 1"},{id: 2, name: "Project 2"}];
+  projects: any[] = [];
   mondays: Date[] = [];
   summaryTasks: any[];
-  constructor(private sharedService: SharedService, private taskService: TaskService) { }
+  constructor(private sharedService: SharedService, private taskBoardService: TaskBoardService) { }
 
   ngOnInit() {
     this.getMonthIntervalDates();
+    this.getProjects();
   }
 
-  showSummaryTasksByProject(id: any){
+  showTasksByProject(id: any){
     this.summaryTasks = [];
+    let subscribers: Observable<any>[] = [];
     this.mondays.forEach((monday)=>{
-        this.taskService.getSummaryTaskByDates({startDate: monday}).subscribe((summary)=>{
-          this.summaryTasks.push(summary);
-        })
+        let endDate = new Date(monday);
+        endDate.setDate(endDate.getDate() + 6);
+        subscribers.push(this.taskBoardService.getTaskByDates({startDate: monday, endDate: endDate, projectId: id}));
+    });
+    concat(subscribers).subscribe(taskByWeek =>{
+      this.summaryTasks.push(taskByWeek);
     });
   }
 
   getMonthIntervalDates(){
     this.mondays = this.sharedService.getMondays();
+    console.log("Mondays", this.mondays);
+  }
+
+  getProjects(){
+    this.taskBoardService.getProjects().subscribe((projects:any[])=>{
+      this.projects = projects;
+    });
   }
 
 }

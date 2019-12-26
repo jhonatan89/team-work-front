@@ -8,6 +8,7 @@ export class SharedService {
   constructor() { }
 
   getMondays() {
+    //let currentDate = new Date("2019-11-15");
     let currentDate = new Date();
     let month = currentDate.getMonth();
     let mondays = [];
@@ -24,5 +25,17 @@ export class SharedService {
     }
 
     return mondays;
+}
+
+getDateNormalized(date: Date){
+  let dateNormalized;
+  if(date){
+    dateNormalized = date.toLocaleDateString("es-US",{year: 'numeric', month: '2-digit', day: '2-digit'});
+    dateNormalized = dateNormalized.replace(/\//g, "");
+    return `${dateNormalized.substring(4)}${dateNormalized.substring(2,4)}${dateNormalized.substring(0,2)}`
+
+  }else{
+    return dateNormalized;
+  }
 }
 }

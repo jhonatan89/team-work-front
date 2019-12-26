@@ -6,6 +6,7 @@
         <div class="form-group col-md-6">
             <label for="select-project">Select a project</label>
             <select class="form-control" id="select-project" (change)="showTasksByProject($event.target.value)">
+                <option>Seleccione un proyecto</option>
                 <option *ngFor="let proj of projects" [value]="proj.id">{{proj.name}}</option>
             </select>
         </div>
@@ -22,8 +23,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2019/11/18 - 2019/11/24</td>
+                <tr *ngFor="let task of summaryTasks; let i = index">
+                    <td>Semana {{i+1}}</td>
                     <td>15</td>
                     <td>5</td>
                     <td>40</td>
