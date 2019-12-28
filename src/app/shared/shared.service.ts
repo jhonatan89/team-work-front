@@ -7,9 +7,10 @@ export class SharedService {
 
   constructor() { }
 
-  getMondays() {
-    //let currentDate = new Date("2019-11-15");
-    let currentDate = new Date();
+  getMondays(date?: Date) {
+    let currentDate: Date;
+
+    date ? currentDate = new Date(date) : currentDate = new Date();
     let month = currentDate.getMonth();
     let mondays = [];
     

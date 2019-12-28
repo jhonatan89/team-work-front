@@ -11,7 +11,7 @@
             </select>
         </div>
     </form>
-
+    <a href="#" class="badge badge-primary">{{selectedDate | date:'MMMM'}}</a>
     <div class="task-table">
         <table class="table">
             <thead>
@@ -23,11 +23,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let task of summaryTasks; let i = index">
-                    <td>Semana {{i+1}}</td>
-                    <td>15</td>
-                    <td>5</td>
-                    <td>40</td>
+                <tr *ngFor="let taskBoard of summaryTasks; let i = index">
+                    <td>{{taskBoard.startDate | date}} - {{taskBoard.endDate | date}}</td>
+                    <td>{{taskBoard.estimatedTasks}}</td>
+                    <td>{{taskBoard.loggedTasks}}</td>
+                    <td>{{taskBoard.totalTasks}}</td>
                 </tr>
             </tbody>
         </table>
