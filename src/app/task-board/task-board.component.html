@@ -11,8 +11,27 @@
             </select>
         </div>
     </form>
-    <a href="#" class="badge badge-primary">{{selectedDate | date:'MMMM'}}</a>
-    <div class="task-table">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Current Month: <span class="card-title-badge">{{selectedDate | date:'MMMM - yyyy'}}</span></div>
+            <button type="button" class="btn btn-sm btn-warning" (click)="openDatePicker=!openDatePicker">Date Options</button>
+            <div class="row date-options-grid" *ngIf="openDatePicker">
+                <div class="col-xs-12 col-12 col-md-4 form-group">
+                    <input type="text"
+                           [(ngModel)]="selectedDate"
+                           placeholder="Select new date"
+                           class="form-control"
+                           bsDatepicker
+                           [bsConfig]="{ isAnimated: true }"
+                    >
+                </div>
+                <div class="col-xs-12 col-12 col-md-3 form-group">
+                    <button type="button" class="btn btn-sm btn-success" (click)="setNewDate()">Change Date</button>
+                </div>        
+            </div>
+        </div>
+    </div>   
+    <div class="task-table" *ngIf="selectedProject">
         <table class="table">
             <thead>
                 <tr>

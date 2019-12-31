@@ -14,6 +14,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class TaskBoardComponent implements OnInit {
   
   projects: any[] = [];
+  selectedProject: any;
   mondays: Date[] = [];
   selectedDate: Date;
   summaryTasks: TaskBoardModel[];
@@ -25,14 +26,17 @@ export class TaskBoardComponent implements OnInit {
     this.getProjects();
   }
 
-  showTasksByProject(id: any){
+  showTasksByProject(projectid?: any){
+    if(projectid){
+      this.selectedProject = this.projects.find((prj)=> prj.id === Number(projectid));
+    }
     this.summaryTasks = [];
     let countSubscribes = 0;
     let subscribers: Observable<any>[] = [];
     this.mondays.forEach((monday)=>{
         let endDate = new Date(monday);
         endDate.setDate(endDate.getDate() + 6);
-        subscribers.push(this.taskBoardService.getTaskByDates({startDate: monday, endDate: endDate, projectId: id}));
+        subscribers.push(this.taskBoardService.getTaskByDates({startDate: monday, endDate: endDate, projectId: this.selectedProject.id}));
     });
     concat(...subscribers).subscribe(taskByWeek =>{
       this.summaryTasks.push(new TaskBoardModel(taskByWeek, this.mondays[countSubscribes]));
@@ -60,6 +64,11 @@ export class TaskBoardComponent implements OnInit {
     this.taskBoardService.getProjects().subscribe((projects:any[])=>{
       this.projects = projects;
     });
+  }
+
+  setNewDate(){
+    this.getMonthIntervalDates(this.selectedDate);
+    this.showTasksByProject();
   }
 
 }
