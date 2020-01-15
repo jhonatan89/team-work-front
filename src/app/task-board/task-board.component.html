@@ -14,7 +14,9 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">Current Month: <span class="card-title-badge">{{selectedDate | date:'MMMM - yyyy'}}</span></div>
-            <button type="button" class="btn btn-sm btn-warning" (click)="openDatePicker=!openDatePicker">Date Options</button>
+            <button type="button" class="btn btn-sm btn-warning" (click)="openDatePicker=!openDatePicker">Date Options 
+                <span><i class="material-icons">expand_more</i></span>
+            </button>
             <div class="row date-options-grid" *ngIf="openDatePicker">
                 <div class="col-xs-12 col-12 col-md-4 form-group">
                     <input type="text"

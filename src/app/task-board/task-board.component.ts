@@ -4,7 +4,6 @@ import { TaskBoardService } from './task-board.service';
 import { forkJoin, concat, Observable } from 'rxjs';
 import { TaskBoardModel } from './task-board.model';
 import Swal from 'sweetalert2';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-task-board',
@@ -57,7 +56,6 @@ export class TaskBoardComponent implements OnInit {
 
   getMonthIntervalDates(date?: Date){
     this.mondays = this.sharedService.getMondays(date);
-    console.log("Mondays", this.mondays);
   }
 
   getProjects(){
